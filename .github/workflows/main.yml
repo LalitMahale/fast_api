@@ -1,25 +1,27 @@
 name: Sync to Hugging Face hub
+
 on:
   push:
     branches: [main]
-  
-  # to run this workflow manually from the Actions tab
   workflow_dispatch:
 
 jobs:
   sync-to-hub:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0
           lfs: true
-      
-      - name: Push to hub
+          fetch-depth: 0
+
+      - name: Push to Hugging Face Hub
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
-
         run: |
-          git config --global credential.helper store
-          git remote set-url origin https://Lalit1997:${{secrets.HF_TOKEN}}@huggingface.co/spaces/Lalit1997/fastapi
-          git push --force origin main
+          git config --global user.email "mahalelalit45@gmail.com"
+          git config --global user.name "Lalit1997"
+
+          git remote set-url origin https://Lalit1997:${HF_TOKEN}@huggingface.co/spaces/Lalit1997/fastapi
+
+          git push origin main
